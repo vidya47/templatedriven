@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="jumbotron">
+    <form #frm="ngForm" (ngSubmit)="addUser(frm)">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" class="form-control" ngModel required pattern="[a-zA-Z][a-zA-Z ]+" #nameUser="ngModel">
+      </div>
+      <div *ngIf="nameUser.touched">
+        <div *ngIf="nameUser.errors?.required" class="alert alert-danger">
+          Name field is mandatory!
+        </div>
+        <div *ngIf="nameUser.errors?.pattern" class="alert alert-danger">
+          Name field is invalid!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="contact">Contact:</label>
+        <input type="text" name="contact" class="form-control" ngModel required pattern="[0-9]*" minlength="10" maxlength="10" #contactUser="ngModel">
+      </div>
+      <div *ngIf="contactUser.touched">
+        <div *ngIf="contactUser.errors?.required" class="alert alert-danger">
+          Contact field is mandatory!
+        </div>
+        <div *ngIf="contactUser.errors?.pattern || contactUser.errors?.minlength" class="alert alert-danger">
+          Contact field is invalid!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" name="email" class="form-control" ngModel required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #emailUser="ngModel">
+      </div>
+      <div *ngIf="emailUser.touched">
+        <div *ngIf="emailUser.errors?.required" class="alert alert-danger">
+          Email field is mandatory!
+        </div>
+        <div *ngIf="emailUser.errors?.pattern" class="alert alert-danger">
+          Email field is invalid!
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="frm.invalid">Add User</button>
+    </form>
+  </div>
+</div>
+
+<ul class="list-group">
+  <li *ngFor="let user of userList" class="list-group-item">
+    {{user.name}}
+  </li>
+</ul>
+
+{{frm.value | json}}
+
+
+
+
+
+
+
+
+"
